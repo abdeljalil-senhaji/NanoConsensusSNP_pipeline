@@ -13,6 +13,8 @@
 *.taxids.txt
 *.zip
 *.jalil
+*.out
+*.err
 
 # db  
 /data/
@@ -38,3 +40,4 @@ __pycache__
 .DS_Store
 Thumbs.db
 save_git.sh
+.gitignore
