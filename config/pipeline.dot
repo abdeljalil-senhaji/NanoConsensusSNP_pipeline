@@ -1,0 +1,25 @@
+digraph Pipeline {
+    rankdir=TD;
+    node [shape=box, style=filled, color="lightblue"];
+
+    Concat [label="Concatenate Fastq"];
+    Trim [label="Trim Adapters"];
+    NanoPlot [label="NanoPlot QC"];
+    Minimap [label="Minimap2 (refA/refB)"];
+    SamTools [label="SAM → BAM triés/indexés"];
+    GenomeCov [label="Genome Coverage"];
+    ExtractLow [label="Extract Low Coverage"];
+    Medaka [label="Call Variants (Medaka)"];
+    Compress [label="Compress & Index VCF"];
+    Consensus [label="Generate Consensus"];
+
+    Concat -> Trim;
+    Trim -> NanoPlot;
+    Trim -> Minimap;
+    Minimap -> SamTools;
+    SamTools -> GenomeCov;
+    GenomeCov -> ExtractLow;
+    ExtractLow -> Medaka;
+    Medaka -> Compress;
+    Compress -> Consensus;
+}
