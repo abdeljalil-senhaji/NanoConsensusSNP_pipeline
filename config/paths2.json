@@ -2,21 +2,18 @@
     "data": {
         "input": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/input/Manip3_Immunodéprime_17062025_Miseq/Fastq",
         "output": {
-            "concatenated": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/concatenated",
             "trimmed": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/trimmed",
-            "nanoplot": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/nanoplot",
             "aligned": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/aligned",
             "sorted_bam": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/sorted_bam",
             "genomecov": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/genomecov",
             "extractline": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/extractline",
-            "medaka_variants": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/medaka_variants",
-            "compressed_vcf": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/compressed_vcf",
+            "variants": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/variants",
             "consensus": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/consensus"
         }
     },
     "references": {
         "rsv_a": "/shared/projects/virome_human_apes/Maud_biostats/TestRapidBarcoding_VRS_04022025/output/ref/RSVA.reference.fasta",
-        "rsv_b": " /shared/projects/virome_human_apes/Maud_biostats/TestRapidBarcoding_VRS_04022025/output/ref/RSVB.reference.fasta"
+        "rsv_b": "/shared/projects/virome_human_apes/Maud_biostats/TestRapidBarcoding_VRS_04022025/output/ref/RSVB.reference.fasta"
     },
     "logs": "logs",
     "slurm": {
@@ -28,12 +25,9 @@
     },
     "modules": {
         "cutadapt": "cutadapt/4.5",
-        "nanoplot": "nanoplot/1.42.0",
         "minimap2": "minimap2/2.28",
         "samtools": "samtools/1.21",
         "bedtools": "bedtools/2.31.1",
-        "medaka": "medaka/2.0.1",
         "bcftools": "bcftools/1.16"
     }
 }
-
