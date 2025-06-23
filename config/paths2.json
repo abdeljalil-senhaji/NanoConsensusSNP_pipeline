@@ -1,21 +1,21 @@
 {
     "data": {
-        "input": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/input/Manip3_Immunodéprime_17062025_Miseq/Fastq",
+        "input": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/data/input/Manip3_Immunodéprime_17062025_Miseq/Fastq/",
         "output": {
-            "trimmed": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/trimmed",
-            "aligned": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/aligned",
-            "sorted_bam": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/sorted_bam",
-            "genomecov": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/genomecov",
-            "extractline": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/extractline",
-            "variants": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/variants",
-            "consensus": "/shared/projects/virome_human_apes/Maud_biostats/pipeline_py_NanoporeAnalysis/data/output/consensus"
+            "trimmed": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/trimmed",
+            "aligned": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/aligned",
+            "sorted_bam": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/sorted_bam",
+            "genomecov": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/genomecov",
+            "extractline": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/extractline",
+            "variants": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/variants",
+            "consensus": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/consensus"
         }
     },
     "references": {
         "rsv_a": "/shared/projects/virome_human_apes/Maud_biostats/TestRapidBarcoding_VRS_04022025/output/ref/RSVA.reference.fasta",
         "rsv_b": "/shared/projects/virome_human_apes/Maud_biostats/TestRapidBarcoding_VRS_04022025/output/ref/RSVB.reference.fasta"
     },
-    "logs": "logs",
+    "logs": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/logs",
     "slurm": {
         "time": "01:00:00",
         "mem": "10G",
