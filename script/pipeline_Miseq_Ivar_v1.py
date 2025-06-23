@@ -201,8 +201,9 @@ module purge
 
         return jobs
 
+
     def call_variants(self, dependencies: List[str]) -> List[str]:
-        """Appel des variants avec bcftools mpileup + bcftools call"""
+        """Appel des variants avec samtools mpileup + bcftools"""
         jobs = []
         input_dir = Path(self.directories["sorted_bam"])
         output_dir = Path(self.directories["variants"])
@@ -217,11 +218,12 @@ module purge
                 logging.info(f"Fichier VCF {vcf} existe déjà → skip")
                 continue
 
-            # ✅ Utilisation de bcftools mpileup au lieu de samtools mpileup
+            # ✅ Nouvelle commande avec options valides
             cmd = (
-                f"bcftools mpileup -f {self.references[ref_key]} {bam} "
+                f"samtools mpileup -uf {self.references[ref_key]} {bam} "
                 f"| bcftools call -mv -Ov -o {vcf}"
             )
+
             job_id = self.submit_slurm_job([cmd], f"mpileup_{base}", dependencies=dependencies)
             jobs.append(job_id)
 

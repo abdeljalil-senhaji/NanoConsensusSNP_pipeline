@@ -2,13 +2,13 @@
     "data": {
         "input": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/data/input/Manip3_Immunodéprime_17062025_Miseq/Fastq/",
         "output": {
-            "trimmed": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/trimmed",
-            "aligned": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/aligned",
-            "sorted_bam": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/sorted_bam",
-            "genomecov": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/genomecov",
-            "extractline": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/extractline",
-            "variants": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/variants",
-            "consensus": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq/consensus"
+            "trimmed": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/trimmed",
+            "aligned": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/aligned",
+            "sorted_bam": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/sorted_bam",
+            "genomecov": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/genomecov",
+            "extractline": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/extractline",
+            "variants": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/variants",
+            "consensus": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/consensus"
         }
     },
     "references": {
