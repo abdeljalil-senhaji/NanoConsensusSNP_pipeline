@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import subprocess
 import os
+
 import json
 import logging
 import tempfile
@@ -82,23 +83,28 @@ module purge
         input_dir = Path(self.config["data"]["input"])
         output_dir = Path(self.directories["trimmed"])
         output_dir.mkdir(parents=True, exist_ok=True)
-
-        for sample_dir in input_dir.iterdir():
-            if not sample_dir.is_dir():
+    
+        # Recherche tous les fichiers R1 et R2
+        r1_files = {f.name.split('_R1')[0]: f for f in input_dir.glob('*_R1*.fastq.gz')}
+        r2_files = {f.name.split('_R2')[0]: f for f in input_dir.glob('*_R2*.fastq.gz')}
+    
+        for base, r1 in r1_files.items():
+            r2 = r2_files.get(base)
+            if not r2:
+                logging.warning(f"Pas de fichier R2 trouvé pour {base} → skip")
                 continue
-            r1 = sample_dir / f"{sample_dir.name}_R1.fastq.gz"
-            r2 = sample_dir / f"{sample_dir.name}_R2.fastq.gz"
-            out_r1 = output_dir / f"{sample_dir.name}_R1_trimmed.fastq.gz"
-            out_r2 = output_dir / f"{sample_dir.name}_R2_trimmed.fastq.gz"
-
+    
+            out_r1 = output_dir / f"{base}_R1_trimmed.fastq.gz"
+            out_r2 = output_dir / f"{base}_R2_trimmed.fastq.gz"
+    
             if out_r1.exists() and out_r2.exists():
-                logging.info(f"Fichiers trimmed pour {sample_dir.name} déjà présents → skip")
+                logging.info(f"Fichiers trimmed pour {base} déjà présents → skip")
                 continue
-
+    
             cmd = f"cutadapt -u 20 -u -20 -o {out_r1} -p {out_r2} {r1} {r2}"
-            job_id = self.submit_slurm_job([cmd], f"cutadapt_{sample_dir.name}")
+            job_id = self.submit_slurm_job([cmd], f"cutadapt_{base}")
             jobs.append(job_id)
-
+    
         return jobs
 
     def run_bowtie2(self, dependencies: List[str]) -> List[str]:
@@ -195,27 +201,57 @@ module purge
 
         return jobs
 
+    # def call_variants(self, dependencies: List[str]) -> List[str]:
+    #     """Appel des variants avec bcftools mpileup + bcftools call"""
+    #     jobs = []
+    #     input_dir = Path(self.directories["sorted_bam"])
+    #     output_dir = Path(self.directories["variants"])
+    #     output_dir.mkdir(parents=True, exist_ok=True)
+
+    #     for bam in input_dir.glob('*_sorted.bam'):
+    #         base = bam.stem.replace('_sorted', '')
+    #         ref_key = 'rsv_a' if 'refA' in base else 'rsv_b'
+    #         vcf = output_dir / f"{base}.vcf"
+
+    #         if vcf.exists():
+    #             logging.info(f"Fichier VCF {vcf} existe déjà → skip")
+    #             continue
+
+    #         # ✅ Utilisation de bcftools mpileup au lieu de samtools mpileup
+    #         cmd = (
+    #             f"bcftools mpileup -f {self.references[ref_key]} {bam} "
+    #             f"| bcftools call -mv -Ov -o {vcf}"
+    #         )
+    #         job_id = self.submit_slurm_job([cmd], f"mpileup_{base}", dependencies=dependencies)
+    #         jobs.append(job_id)
+
+    #     return jobs
     def call_variants(self, dependencies: List[str]) -> List[str]:
-        """Appel des variants avec samtools mpileup + bcftools"""
-        jobs = []
-        input_dir = Path(self.directories["sorted_bam"])
-        output_dir = Path(self.directories["variants"])
-        output_dir.mkdir(parents=True, exist_ok=True)
+    """Appel des variants avec samtools mpileup + bcftools"""
+    jobs = []
+    input_dir = Path(self.directories["sorted_bam"])
+    output_dir = Path(self.directories["variants"])
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-        for bam in input_dir.glob('*_sorted.bam'):
-            base = bam.stem.replace('_sorted', '')
-            ref_key = 'rsv_a' if 'refA' in base else 'rsv_b'
-            vcf = output_dir / f"{base}.vcf"
+    for bam in input_dir.glob('*_sorted.bam'):
+        base = bam.stem.replace('_sorted', '')
+        ref_key = 'rsv_a' if 'refA' in base else 'rsv_b'
+        vcf = output_dir / f"{base}.vcf"
 
-            if vcf.exists():
-                logging.info(f"Fichier VCF {vcf} existe déjà → skip")
-                continue
+        if vcf.exists():
+            logging.info(f"Fichier VCF {vcf} existe déjà → skip")
+            continue
 
-            cmd = f"samtools mpileup -uf {self.references[ref_key]} {bam} | bcftools call -mv -Ov -o {vcf}"
-            job_id = self.submit_slurm_job([cmd], f"mpileup_{base}", dependencies=dependencies)
-            jobs.append(job_id)
+        # ✅ Nouvelle commande avec options valides
+        cmd = (
+            f"samtools mpileup --BCF --output-type u -f {self.references[ref_key]} {bam} "
+            f"| bcftools call --multiallelic-caller --variants-only -Ov -o {vcf}"
+        )
 
-        return jobs
+        job_id = self.submit_slurm_job([cmd], f"mpileup_{base}", dependencies=dependencies)
+        jobs.append(job_id)
+
+    return jobs
 
     def compress_and_index_vcf(self, dependencies: List[str]) -> List[str]:
         """Compression et indexation des fichiers VCF"""
@@ -254,7 +290,8 @@ module purge
             ref_type = "refA" if "_refA" in base_part else "refB"
             ref_key = 'rsv_a' if ref_type == 'refA' else 'rsv_b'
 
-            bed_file = extract_dir / f"{base_part}_low.bed"
+            bed_file = extract_dir / f"{base}_{ref_type}_sorted_low.bed"
+            print(bed_file)
             consensus_file = consensus_dir / f"{base}_consensus_{ref_type}.fasta"
 
             if consensus_file.exists():

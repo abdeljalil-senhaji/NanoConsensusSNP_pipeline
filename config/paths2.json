@@ -12,8 +12,10 @@
         }
     },
     "references": {
-        "rsv_a": "/shared/projects/virome_human_apes/Maud_biostats/TestRapidBarcoding_VRS_04022025/output/ref/RSVA.reference.fasta",
-        "rsv_b": "/shared/projects/virome_human_apes/Maud_biostats/TestRapidBarcoding_VRS_04022025/output/ref/RSVB.reference.fasta"
+        "rsv_a": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsva/RSVA.reference.fasta",
+        "rsv_b": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsvb/RSVB.reference.fasta",
+        "rsv_a_index": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsva/RSVA.reference",
+        "rsv_b_index": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsvb/RSVB.reference"
     },
     "logs": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/logs",
     "slurm": {
@@ -25,7 +27,7 @@
     },
     "modules": {
         "cutadapt": "cutadapt/4.5",
-        "minimap2": "minimap2/2.28",
+        "bowtie2": "bowtie2/2.5.4",
         "samtools": "samtools/1.21",
         "bedtools": "bedtools/2.31.1",
         "bcftools": "bcftools/1.16"
