@@ -217,7 +217,6 @@ module purge
                 logging.info(f"Fichier VCF {vcf} existe déjà → skip")
                 continue
 
-            # ✅ Utilisation de bcftools mpileup au lieu de samtools mpileup
             cmd = (
                 f"bcftools mpileup -f {self.references[ref_key]} {bam} "
                 f"| bcftools call -mv -Ov -o {vcf}"

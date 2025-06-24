@@ -7,7 +7,7 @@ import json
 import logging
 from pathlib import Path
 from typing import Dict, Any, List
-from utils import setup_directories, setup_logging  # À adapter selon tes outils
+from utils import setup_directories, setup_logging 
 
 
 class SlurmPipelineRSV:
