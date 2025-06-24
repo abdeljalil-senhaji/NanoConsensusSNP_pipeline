@@ -1,0 +1,32 @@
+{
+    "data": {
+        "input": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/data/input/Manip3_Immunodéprime_17062025_Miseq/Fastq/",
+        "output": {
+            "trimmed": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/trimmed",
+            "aligned": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/aligned",
+            "sorted_bam": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/sorted_bam",
+            "consensus": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/output_Miseq_ivar/consensus"
+        }
+    },
+    "references": {
+        "rsv_a": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsva/RSVA.reference.fasta",
+        "rsv_b": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsvb/RSVB.reference.fasta",
+        "rsv_a_index": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsva/RSVA.reference",
+        "rsv_b_index": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/ref_indexation/rsvb/RSVB.reference"
+    },
+    "logs": "/shared/projects/virome_human_apes/Maud_biostats/NanoConsensusSNP_pipeline/logs",
+    "slurm": {
+        "time": "01:00:00",
+        "mem": "10G",
+        "cpus": 10,
+        "partition": "fast",
+        "account": "virome_human_apes"
+    },
+    "modules": {
+        "cutadapt": "cutadapt/4.5",
+        "bowtie2": "bowtie2/2.5.4",
+        "samtools": "samtools/1.21",
+        "bedtools": "bedtools/2.31.1",
+        "bcftools": "bcftools/1.16"
+    }
+}
