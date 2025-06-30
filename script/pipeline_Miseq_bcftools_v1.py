@@ -101,7 +101,7 @@ module purge
                 logging.info(f"Fichiers trimmed pour {base} déjà présents → skip")
                 continue
     
-            cmd = f"cutadapt -u 20 -u -20 -o {out_r1} -p {out_r2} {r1} {r2}"
+            cmd = f"cutadapt -u 20 -u -20 -U 20 -U -20 -o {out_r1} -p {out_r2} {r1} {r2}"
             job_id = self.submit_slurm_job([cmd], f"cutadapt_{base}")
             jobs.append(job_id)
     

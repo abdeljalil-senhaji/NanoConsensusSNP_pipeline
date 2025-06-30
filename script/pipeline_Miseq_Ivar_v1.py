@@ -101,7 +101,7 @@ class SlurmPipelineRSV:
                 logging.info(f"Fichiers trimmed pour {base} déjà présents → skip")
                 continue
 
-            cmd = f"cutadapt -u 20 -u -20 -o {out_r1} -p {out_r2} {r1} {r2}"
+            cmd = f"cutadapt -u 20 -u -20 -U 20 -U -20 -o {out_r1} -p {out_r2} {r1} {r2}" # -u 20 pour enlever 20 bases du début de R1 et -U -20 pour enlever 20 bases de la fin de R2
             job_id = self.submit_slurm_job([cmd], f"cutadapt_{base}")
             jobs.append(job_id)
 
@@ -170,7 +170,7 @@ class SlurmPipelineRSV:
         consensus_dir.mkdir(parents=True, exist_ok=True)
 
         for bam in input_dir.glob('*_sorted.bam'):
-            base = bam.stem.replace('_sorted', '')  # ex: sample_refA
+            base = bam.stem.replace('_sorted', '')  
             ref_type = "refA" if "_refA" in base else "refB"
             ref_key = 'rsv_a' if ref_type == 'refA' else 'rsv_b'
             consensus_file = consensus_dir / f"{base}_ivar_consensus.fasta"
@@ -182,8 +182,8 @@ class SlurmPipelineRSV:
             # Commande complète avec activation de l'environnement conda
             cmd = (
                 f"source activate ivar_env && "
-                f"samtools mpileup -aa -A -d 0 -Q 0 {bam} | "
-                f"ivar consensus -p  {consensus_file}"
+                f"samtools mpileup -aa -A -d 0 -Q 0 {bam} | " # q = 0 pour garder les bases de faible qualité -d 0 pour ne pas limiter la profondeur 
+                f"ivar consensus -p  {consensus_file}" #-t 0.6 fréquence pour appler une base majoritaires / -m 10 minimum de couverture
             )
 
             job_id = self.submit_slurm_job([cmd], f"ivar_{base}", dependencies=dependencies)

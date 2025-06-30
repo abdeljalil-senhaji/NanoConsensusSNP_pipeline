@@ -108,7 +108,7 @@ class SlurmPipelineRSV:
             if output_file.exists():
                 logging.info(f"Fichier trimmed {output_file} existe déjà - skip")
                 continue
-            cmd = f"cutadapt -u 20 -u -20 -o {output_file} {fq}"
+            cmd = f"cutadapt -u 20 -u -20 -U 20 -U -20 -o {output_file} {fq}" #  -u 20 pour enlever 20 bases du début et -U -20 pour enlever 20 bases de la fin 
             job_id = self.submit_slurm_job([cmd], f"cutadapt_{base}", dependencies=concat_job_ids)
             jobs.append(job_id)
         return jobs
