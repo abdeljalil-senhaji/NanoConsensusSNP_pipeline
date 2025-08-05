@@ -198,9 +198,7 @@ class SlurmPipelineRSV:
             sam_jobs = self.process_sam_files(bowtie_jobs)
             consensus_jobs = self.generate_consensus(sam_jobs)
             logging.info(f"Pipeline terminé. Consensus généré dans {self.directories['consensus']}")
-            
             print(" Pipeline Done! ")
-            
         except Exception as e:
             logging.critical(f"Échec du pipeline : {str(e)}")
             raise
